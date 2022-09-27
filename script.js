@@ -11,7 +11,7 @@ let book = [{
 
 function newBook() {
   book = {
-    title: title.value, 
+    title: title.value,
     author: author.value,
     idNumber: Math.floor(Math.random() * 1000000),
   };
