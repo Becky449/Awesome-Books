@@ -1,49 +1,45 @@
-const books = [];
-const form = document.querySelector('form');
+const form = document.querySelector('#form');
 const title = document.getElementById('title');
 const author = document.getElementById('author');
-const submit = document.getElementById('submit');
-const body = document.querySelector('body');
+const bookList = document.getElementById('books-list')
+let collection = JSON.parse(localStorage.getItem('collection')) || [];
+let book = [];
 
-/* function newBook(){
-    let book = {};
-    book = {
-        title: title,
-        author: author
-    }
-    books.push(book);
-} */
-
-const retrieveData = localStorage.getItem('book');
-
-body.onload = () => {
-    if (retrieveData) {
-    const serialize = JSON.parse(retrieveData);
-    title.value = serialize.text;
-    author.value = serialize.text;
+function newBook() {
+  book = {
+    title: title.value, 
+    author: author.value,
+    idNumber: Math.floor(Math.random() * 1000000)
+  };
+  collection.push(book);
+  localStorage.setItem('collection', JSON.stringify(collection));
 }
-};
 
-document.querySelectorAll('input').forEach((input) => {
-    input.addEventListener('input', (event) => {
-    event.preventDefault();
-
-      // Get input field values
-    const titleData = document.querySelector('#title').value;
-    const authorData = document.querySelector('#author').value
-
-      // Store values in object;
-    const bookData = {
-        title: titleData,
-        author: authorData,
-    };
-
-      // store the object in localStorage
-
-    localStorage.setItem('book', JSON.stringify(bookData));
-    });
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (title.value !== '' && author.value !== '') {
+    newBook();
+      const tableRow = document.createElement('tr');
+      const newTitle = document.createElement('td');
+      const newAuthor = document.createElement('td');
+      const deleteButton = document.createElement('button');
+      newTitle.innerHTML = `${book.title}`;
+      newAuthor.innerHTML = `${book.Author}`;
+      deleteButton.innerHTML = 'Delete';
+      tableRow.append(newTitle, newAuthor, deleteButton);
+      bookList.append(tableRow);
+      deleteButton.addEventListener('click', () => {
+        deleteButton.parentElement.remove();
+        deleteBook(book.idNumber);
+      });
+    form.reset();
+  } else {
+    alert('Enter valid values for title and author fields, please.');
+  }
 });
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-});
+
+function deleteBook(idNumber) {
+  collection = collection.filter((books) => books.idNumber !== idNumber);
+  localStorage.setItem('collection', JSON.stringify(collection));
+}

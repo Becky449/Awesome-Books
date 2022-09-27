@@ -4,16 +4,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Awesome books</title>
 </head>
 <body>
   <h1>Awesome books</h1>
-  <section class="books-list">
-
+  <section>
+    <table>
+      <tr>
+        <th>Book Title</th>
+        <th>Book Author</th>
+        <th></th>
+      </tr>
+      <tbody id= "books-list"></tbody>
+    </table>
   </section>
   <hr>
   <br>
-  <form>
+  <form id="form">
     <div>
       <input type="text" placeholder="Title" id="title">
     </div>
@@ -25,5 +32,6 @@
     <input type="submit" value="Add book" id="submit">
     <br>
   </form>
+  <script src="script.js"></script>
 </body>
 </html>
